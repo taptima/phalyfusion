@@ -8,10 +8,10 @@ It runs analysers, combines its outputs and makes a single nice output in variou
 
 
 Currently supported analysers:
-  - [PHPStan]
-  - [Phan]
-  - [Psalm]
-  - [PHPMD]
+  - [PHPStan](https://phpstan.org/)
+  - [Phan](https://github.com/phan/phan)
+  - [Psalm](https://psalm.dev/)
+  - [PHPMD](https://phpmd.org/)
 
 # Installation
 ```sh
