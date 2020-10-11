@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle>
+<file name="sampleCodebase/sampleCore.php">
+  <error line="9" column="1" severity="error" message="psalm: Docblock-defined class or interface PluginRunnerInterface does not exist" />
+  <error line="11" column="1" severity="error" message="phan: UndefError PhanUndeclaredTypeProperty Property \sampleCore-&gt;plugins has undeclared type \PluginRunnerInterface[]" />
+  <error line="11" column="1" severity="error" message="phpstan: Property sampleCore::$plugins has unknown class PluginRunnerInterface as its type." />
+  <error line="62" column="1" severity="error" message="psalm: Docblock-defined class or interface PluginOutputModel does not exist" />
+  <error line="64" column="1" severity="error" message="phan: UndefError PhanUndeclaredTypeReturnType Return type of runPlugins() is undeclared type \PluginOutputModel[]" />
+  <error line="64" column="1" severity="error" message="phpstan: Return typehint of method sampleCore::runPlugins() has invalid type PluginOutputModel." />
+  <error line="68" column="1" severity="error" message="phan: UndefError PhanUndeclaredClassMethod Call to method getName from undeclared class \PluginRunnerInterface" />
+  <error line="68" column="1" severity="error" message="phpstan: Call to static method getName() on an unknown class PluginRunnerInterface." />
+  <error line="70" column="1" severity="error" message="phan: UndefError PhanUndeclaredClassMethod Call to method error from undeclared class \IOHandler" />
+  <error line="70" column="1" severity="error" message="phpmd: Avoid using static access to class 'IOHandler' in method 'runPlugins'." />
+  <error line="70" column="1" severity="error" message="phpstan: Call to static method error() on an unknown class IOHandler." />
+  <error line="74" column="1" severity="error" message="phan: UndefError PhanUndeclaredClassMethod Call to method run from undeclared class \PluginRunnerInterface" />
+  <error line="74" column="1" severity="error" message="phpstan: Call to method run() on an unknown class PluginRunnerInterface." />
+  <error line="85" column="1" severity="error" message="phan: UndefError PhanUndeclaredClassMethod Call to method createMap from undeclared class \ClassMapGenerator" />
+  <error line="85" column="1" severity="error" message="phpmd: Avoid using static access to class 'ClassMapGenerator' in method 'loadPlugins'." />
+  <error line="85" column="1" severity="error" message="phpstan: Call to static method createMap() on an unknown class ClassMapGenerator." />
+  <error line="85" column="1" severity="error" message="psalm: Class or interface ClassMapGenerator does not exist" />
+  <error line="87" column="1" severity="error" message="phan: UndefError PhanUndeclaredClassReference Reference to undeclared class \PluginRunnerInterface" />
+  <error line="87" column="1" severity="error" message="phpstan: Class PluginRunnerInterface not found." />
+  <error line="90" column="1" severity="error" message="phpmd: Missing class import via use statement (line '90', column '35')." />
+  <error line="92" column="1" severity="error" message="phan: UndefError PhanUndeclaredClassMethod Call to method error from undeclared class \IOHandler" />
+  <error line="92" column="1" severity="error" message="phpmd: Avoid using static access to class 'IOHandler' in method 'loadPlugins'." />
+  <error line="92" column="1" severity="error" message="phpstan: Call to static method error() on an unknown class IOHandler." />
+  <error line="100" column="1" severity="error" message="phan: TypeError PhanTypeExpectedObjectOrClassName Expected an object instance or the name of a class but saw expression $class with type class-string|object" />
+</file>
+</checkstyle>

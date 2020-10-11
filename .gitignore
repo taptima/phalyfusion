@@ -1,0 +1,15 @@
+/vendor/
+/bin/
+
+.phan
+phalyfusion.neon
+psalm.xml
+phpstan.neon
+.php_cs.cache
+
+
+.DS_Store
+.idea
+
+*.sublime-project
+*.sublime-workspace

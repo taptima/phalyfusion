@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+<?php
+
+use Phalyfusion\Console\Command\AnalyseCommand;
+use Symfony\Component\Console\Application;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+$rootDir = __DIR__;
+
+$application = new Application('Phalyfusion', '1.0.0');
+$command = new AnalyseCommand($rootDir);
+
+$application->add($command);
+$application->setDefaultCommand($command->getName(), false);
+$application->run();
