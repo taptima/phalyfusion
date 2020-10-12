@@ -23,7 +23,8 @@ Composer will install Phalyfusion’s executable in its ```bin-dir``` which defa
 
 # Usage
 After installing Phalyfusion you need to create `phalyfusion.neon` configuration file in the project root.
-#### Config sample
+
+### Config sample
 ```
 plugins:
     usePlugins:
@@ -33,7 +34,7 @@ plugins:
         - phpmd
 
     runCommands:
-        phan:    bin/phan -k .phan/config.php
+        phan:     bin/phan -k .phan/config.php
         phpstan:  bin/phpstan analyse -c phpstan.neon --level 7
         psalm:    bin/psalm -c psalm.xml
         phpmd:    bin/phpmd src text cleancode
@@ -46,15 +47,27 @@ Provide command lines to run stated analysers. Paths are resolved relative to cu
 - Output formats of the analysers are overridden. To choose Phalyfusion output format use --format option when running.
 - File\path arguments of analysers are NOT guaranteed to be overridden in case you pass such argument to Phalyfusion.
 - Do not state path/files options/arguments in runCommands, use paths argument of Phalyfusion or configure it in configs.
-#### Running
-After configuring the tool and all used analysers run Phalyfusion:
-<br>
-`<path_to_bin>/phalyfusion analyse [options] [--] [<files>...]`
-<br><br>
-`analyse` is a default command, so it is optional to specify it. The simplest run command looks like:
-<br>`<path_to_bin>/phalyfusion`
-<br><br>
-Type `<path_to_bin>/phalyfusion analyse --help` to show all available options and arguments.
+
+### Usage
+After configuring the tool and all used analysers run Phalyfusion. 
+```bash
+$ php phalyfusion analyse [options] [--] [<files>...]
+```
+The `analyse` is a default command to run all connected plugins, so it is optional to specify it. The simplest run command looks like:
+```bash
+$ php phalyfusion
+$ php phalyfusion analyse
+```
+
+Type `$ php phalyfusion analyse --help` to show all available options and arguments.
+
+#### Arguments
+The `files` argument is Paths to files with source code to run analysis on. Separate multiple with a space. Do not pass directories. File paths from command lines stated in phalyfusion.neon runCommands will be used by default.
+
+#### Options
+The `-c`, `--config` option is a path to neon config file. `phalyfusion.neon` located in project root is used by default.
+
+The `-f`, `--format` option for the output format. Supported formats are `table` (default one), `json`, 'checkstyle'.
 
 # Contributing
 See [CONTRIBUTING](CONTRIBUTING.md) file.
