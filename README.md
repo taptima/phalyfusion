@@ -1,4 +1,7 @@
 # Phalyfusion
+[![Latest Stable Version](https://poser.pugx.org/taptima/phalyfusion/v)](//packagist.org/packages/taptima/phalyfusion)
+[![Latest Unstable Version](https://poser.pugx.org/taptima/phalyfusion/v/unstable)](//packagist.org/packages/taptima/phalyfusion)
+[![License](https://poser.pugx.org/taptima/phalyfusion/license)](//packagist.org/packages/taptima/phalyfusion)
 
 Phalyfusion is a tool for convenient and effective usage of multiple PHP static code analysers.
 It runs analysers, combines its outputs and makes a single nice output in various formats:
@@ -14,8 +17,8 @@ Currently supported analysers:
   - [PHPMD](https://phpmd.org/)
 
 # Installation
-```sh
-composer require --dev taptima/phalyfusion
+```shell script
+composer require --dev taptima/phalyfusion dev-master
 ```
 Composer will install Phalyfusion’s executable in its ```bin-dir``` which defaults to ```vendor/bin```.
 
@@ -25,7 +28,7 @@ Composer will install Phalyfusion’s executable in its ```bin-dir``` which defa
 After installing Phalyfusion you need to create `phalyfusion.neon` configuration file in the project root.
 
 ### Config sample
-```
+```neon
 plugins:
     usePlugins:
         - phan
