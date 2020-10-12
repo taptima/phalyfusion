@@ -16,6 +16,17 @@ Currently supported analysers:
   - [Psalm](https://psalm.dev/)
   - [PHPMD](https://phpmd.org/)
 
+# How it works
+For example, phpstan, phan and phpmd are required in the project.
+Then the analyzer output looks like this (for example phan):
+
+![Phan output](/docs/images/phan_output.png)
+
+Phalyfusion combines the output of all analyzers, groups them by file, and sorts them by line numbers.
+The resulting output looks like this:
+
+![Phalyfusion output](/docs/images/phalyfusion_out_1.png)
+
 # Installation
 ```shell script
 composer require --dev taptima/phalyfusion dev-master
@@ -70,7 +81,7 @@ The `files` argument is Paths to files with source code to run analysis on. Sepa
 #### Options
 The `-c`, `--config` option is a path to neon config file. `phalyfusion.neon` located in project root is used by default.
 
-The `-f`, `--format` option for the output format. Supported formats are `table` (default one), `json`, 'checkstyle'.
+The `-f`, `--format` option for the output format. Supported formats are `table` (default one), `json`, `checkstyle`.
 
 # Contributing
 See [CONTRIBUTING](CONTRIBUTING.md) file.
