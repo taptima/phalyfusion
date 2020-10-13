@@ -31,4 +31,4 @@ jobs:
 
     - name: Run test suite
       # Test suite is currently failing. @todo remove `|| true` when it passes.
-      run: composer run-script test || true
+      run: make test || true
