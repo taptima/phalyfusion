@@ -42,6 +42,9 @@
     "config": {
         "bin-dir": "bin"
     },
+    "scripts": {
+        "test": "bin/phpunit tests"
+    },
     "autoload": {
         "psr-4": { "Phalyfusion\\": "src/" }
     }
