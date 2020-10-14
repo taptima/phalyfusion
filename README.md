@@ -29,7 +29,7 @@ Then the analyzer output looks like this (for example phan):
 
 ![Phan output](/docs/images/phan_output.png)
 
-Phalyfusion combines the output of all analyzers, groups them by file, and sorts them by line numbers.
+Phalyfusion combines the output of all analyzers and qa tools, groups them by file, and sorts them by line numbers.
 The resulting output looks like this:
 
 ![Phalyfusion output](/docs/images/phalyfusion_out_1.png)
