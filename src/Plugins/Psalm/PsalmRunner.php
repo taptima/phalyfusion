@@ -3,7 +3,6 @@
 namespace Phalyfusion\Plugins\Psalm;
 
 use Phalyfusion\Console\IOHandler;
-use Phalyfusion\Model\ErrorModel;
 use Phalyfusion\Model\PluginOutputModel;
 use Phalyfusion\Plugins\PluginRunner;
 
@@ -47,14 +46,7 @@ class PsalmRunner extends PluginRunner
         $decoded = json_decode($output, true);
         if ($decoded) {
             foreach ($decoded as $error) {
-                $prefix   = getcwd() . '/';
-                $filePath = $error['file_path'];
-                if (substr($filePath, 0, strlen($prefix)) == $prefix) {
-                    $filePath = substr($filePath, strlen($prefix));
-                }
-
-                $errorModel = new ErrorModel($error['line_from'], $error['message'], $error['severity'], self::name);
-                $outputModel->appendError($filePath, $errorModel);
+                $this->addError($outputModel, $error['file_path'], $error['message'], $error['line_from'], $error['severity']);
             }
         }
 

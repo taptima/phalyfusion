@@ -3,7 +3,6 @@
 namespace Phalyfusion\Plugins\Phan;
 
 use Phalyfusion\Console\IOHandler;
-use Phalyfusion\Model\ErrorModel;
 use Phalyfusion\Model\PluginOutputModel;
 use Phalyfusion\Plugins\PluginRunner;
 
@@ -53,10 +52,7 @@ class PhanRunner extends PluginRunner
         $decoded = json_decode($output, true);
         if ($decoded) {
             foreach ($decoded as $error) {
-                $filePath   = $error['location']['path'];
-                $errorModel = new ErrorModel($error['location']['lines']['begin'], $error['description'],
-                    $error['type'], self::name);
-                $outputModel->appendError($filePath, $errorModel);
+                $this->addError($outputModel, $error['location']['path'], $error['description'], $error['location']['lines']['begin'], $error['type']);
             }
         }
 
