@@ -1,9 +1,9 @@
-# Phalyfusion
+# Phalyfusion [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Combine%20the%20output%20of%20php%20static%20analyzers%20into%20a%20single%20convenient%20format%20with%20Phalyfusion%21&url=https://github.com/taptima/phalyfusion&hashtags=php,phpstan,phan,psalm,staticanalyzer,developers)
 [![Latest Stable Version](https://poser.pugx.org/taptima/phalyfusion/v)](//packagist.org/packages/taptima/phalyfusion)
 [![Latest Unstable Version](https://poser.pugx.org/taptima/phalyfusion/v/unstable)](//packagist.org/packages/taptima/phalyfusion)
 [![License](https://poser.pugx.org/taptima/phalyfusion/license)](//packagist.org/packages/taptima/phalyfusion)
 
-Phalyfusion is a tool for convenient and effective usage of multiple PHP static code analysers and qa tools.
+**Phalyfusion** is a tool for convenient and effective usage of multiple PHP static code analysers and QA tools.
 It runs analysers, combines its outputs and makes a single nice output in various formats:
   - Nice PHPStan-like table console output, groups errors by the file.
   - Checkstyle
@@ -15,9 +15,15 @@ Currently supported analysers and tools:
   - [Phan](https://github.com/phan/phan)
   - [Psalm](https://psalm.dev/)
   - [PHPMD](https://phpmd.org/)
-  - [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer)
+  - [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer). Run PHP-CS-Fixer with `--dry-run` option.
 
-# How it works
+## Table of contents
+- [How it works](#how-it-works)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+
+## How it works
 For example, phpstan, phan and phpmd are required in the project.
 Then the analyzer output looks like this (for example phan):
 
@@ -28,7 +34,7 @@ The resulting output looks like this:
 
 ![Phalyfusion output](/docs/images/phalyfusion_out_1.png)
 
-# Installation
+## Installation
 ```shell script
 composer require --dev taptima/phalyfusion dev-master
 ```
@@ -36,7 +42,7 @@ Composer will install Phalyfusion’s executable in its ```bin-dir``` which defa
 
 **Analysers should be installed individually.**
 
-# Usage
+## Usage
 After installing Phalyfusion you need to create `phalyfusion.neon` configuration file in the project root.
 
 ### Config sample
@@ -86,5 +92,5 @@ The `-c`, `--config` option is a path to neon config file. `phalyfusion.neon` lo
 
 The `-f`, `--format` option for the output format. Supported formats are `table` (default one), `json`, `checkstyle`.
 
-# Contributing
+## Contributing
 See [CONTRIBUTING](CONTRIBUTING.md) file.
