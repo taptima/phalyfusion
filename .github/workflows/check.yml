@@ -13,6 +13,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    
+    - name: Update package info
+      run: sudo apt update;
 
     - name: Install PHP AST extension
       run:  sudo apt-get install -y php-ast
