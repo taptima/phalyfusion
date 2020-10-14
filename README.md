@@ -3,18 +3,19 @@
 [![Latest Unstable Version](https://poser.pugx.org/taptima/phalyfusion/v/unstable)](//packagist.org/packages/taptima/phalyfusion)
 [![License](https://poser.pugx.org/taptima/phalyfusion/license)](//packagist.org/packages/taptima/phalyfusion)
 
-Phalyfusion is a tool for convenient and effective usage of multiple PHP static code analysers.
+Phalyfusion is a tool for convenient and effective usage of multiple PHP static code analysers and qa tools.
 It runs analysers, combines its outputs and makes a single nice output in various formats:
   - Nice PHPStan-like table console output, groups errors by the file.
   - Checkstyle
   - Json
 
 
-Currently supported analysers:
+Currently supported analysers and tools:
   - [PHPStan](https://phpstan.org/)
   - [Phan](https://github.com/phan/phan)
   - [Psalm](https://psalm.dev/)
   - [PHPMD](https://phpmd.org/)
+  - [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer)
 
 # How it works
 For example, phpstan, phan and phpmd are required in the project.
@@ -46,14 +47,16 @@ plugins:
         - phpstan
         - psalm
         - phpmd
+        - php-cs-fixer
 
     runCommands:
-        phan:     bin/phan -k .phan/config.php
-        phpstan:  bin/phpstan analyse -c phpstan.neon --level 7
-        psalm:    bin/psalm -c psalm.xml
-        phpmd:    bin/phpmd src text cleancode
+        phan:           bin/phan -k .phan/config.php
+        phpstan:        bin/phpstan analyse -c phpstan.neon --level 7
+        psalm:          bin/psalm -c psalm.xml
+        phpmd:          bin/phpmd src text cleancode
+        php-cs-fixer:   "bin/php-cs-fixer fix --config=.php_cs"
 ```
-Provide names of analysers (plugins) you want to use in `usePlugins`. Choose from: `phan` `phpstan` `psalm` `phpmd`.
+Provide names of analysers (plugins) you want to use in `usePlugins`. Choose from: `phan`, `phpstan`, `psalm`, `phpmd` or `php-cs-fixer`.
 Provide command lines to run stated analysers. Paths are resolved relative to current working directory (the directory where from you are running Phalyfusion)
 
 - Note that each analyser should be individually installed and configured.

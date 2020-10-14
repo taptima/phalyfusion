@@ -4,9 +4,11 @@ plugins:
         - phpstan
         - psalm
         - phpmd
+        - php-cs-fixer
 
     runCommands:
-        phan:    '../bin/phan -k configuration/phan_config_test.php --output-mode "not supported" '
-        phpstan: ../bin/phpstan analyse -c configuration/phpstan_test.neon --error-format unsupported --level 7
-        psalm:   "../bin/psalm -c 'configuration/psalm_test.xml' --output-format=unsupported"
-        phpmd:   ../bin/phpmd sampleCodebase someunsupportedformat cleancode
+        phan:           '../bin/phan -k configuration/phan_config_test.php --output-mode "not supported" '
+        phpstan:        ../bin/phpstan analyse -c configuration/phpstan_test.neon --error-format unsupported --level 7
+        psalm:          "../bin/psalm -c 'configuration/psalm_test.xml' --output-format=unsupported"
+        phpmd:          ../bin/phpmd sampleCodebase someunsupportedformat cleancode
+        php-cs-fixer:   "../bin/php-cs-fixer fix --config=configuration/.php_cs_test"

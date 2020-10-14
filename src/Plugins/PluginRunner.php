@@ -4,6 +4,7 @@ namespace Phalyfusion\Plugins;
 
 use Exception;
 use Phalyfusion\Console\IOHandler;
+use Phalyfusion\Model\ErrorModel;
 use Phalyfusion\Model\PluginOutputModel;
 use Symfony\Component\Process\Process;
 
@@ -95,5 +96,42 @@ abstract class PluginRunner implements PluginRunnerInterface
         preg_match('/\'.*?\'|".*?"|\S+/', $runCommand, $matches);
 
         return substr_replace($runCommand, " {$option}", strlen($matches[0]), 0);
+    }
+
+    /**
+     * Create and add error to plugin output model.
+     *
+     * @param PluginOutputModel $outputModel
+     * @param string            $filePath
+     * @param string            $message
+     * @param int               $lineNumber
+     * @param string            $type
+     *
+     * @return PluginOutputModel
+     */
+    protected function addError(PluginOutputModel $outputModel, string $filePath, string $message, int $lineNumber = 0, string $type = 'error'): PluginOutputModel
+    {
+        $errorModel = new ErrorModel($lineNumber, $message, $type, self::getName());
+        $outputModel->appendError($this->prepareFilePath($filePath), $errorModel);
+
+        return $outputModel;
+    }
+
+    /**
+     * Prepare file path.
+     *
+     * @param string $filePath
+     *
+     * @return string
+     */
+    protected function prepareFilePath(string $filePath): string
+    {
+        $realPath = realpath($filePath);
+        $prefix   = getcwd() . '/';
+        if (substr($realPath, 0, strlen($prefix)) === $prefix) {
+            return substr($realPath, strlen($prefix));
+        }
+
+        return $filePath;
     }
 }

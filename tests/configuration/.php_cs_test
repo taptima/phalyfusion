@@ -1,0 +1,19 @@
+#!/usr/bin/php
+<?php
+
+$finder = PhpCsFixer\Finder::create()
+    ->files()
+    ->name('*.php')
+    ->files()
+    ->in(__DIR__ . '/../sampleCodebase')
+;
+
+return PhpCsFixer\Config::create()
+    ->setRules([
+        '@Symfony'      => true,
+        '@PSR2'         => true,
+        '@PhpCsFixer'   => true,
+        'braces'        => true,
+    ])
+    ->setFinder($finder)
+;

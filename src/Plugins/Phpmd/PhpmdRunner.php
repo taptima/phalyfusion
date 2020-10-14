@@ -3,7 +3,6 @@
 namespace Phalyfusion\Plugins\Phpmd;
 
 use Phalyfusion\Console\IOHandler;
-use Phalyfusion\Model\ErrorModel;
 use Phalyfusion\Model\PluginOutputModel;
 use Phalyfusion\Plugins\PluginRunner;
 
@@ -53,14 +52,7 @@ class PhpmdRunner extends PluginRunner
         if ($decoded) {
             foreach ($decoded['files'] as $file) {
                 foreach ($file['violations'] as $error) {
-                    $prefix   = getcwd() . '/';
-                    $filePath = $file['file'];
-                    if (substr($filePath, 0, strlen($prefix)) == $prefix) {
-                        $filePath = substr($filePath, strlen($prefix));
-                    }
-
-                    $errorModel = new ErrorModel($error['beginLine'], $error['description'], 'error', self::name);
-                    $outputModel->appendError($filePath, $errorModel);
+                    $this->addError($outputModel, $file['file'], $error['description'], $error['beginLine']);
                 }
             }
         }
