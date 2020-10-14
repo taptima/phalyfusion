@@ -13,13 +13,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      
+    - name: Setup PHP with ast extension
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.1'
+        extensions: ast
     
-    - name: Update package info
-      run: sudo apt update;
-
-    - name: Install PHP AST extension
-      run:  sudo apt-get install -y php-ast
-
     - name: Validate composer.json and composer.lock
       run: composer validate
 
