@@ -84,6 +84,22 @@ abstract class PluginRunner implements PluginRunnerInterface
     abstract protected function parseOutput(string $output): PluginOutputModel;
 
     /**
+     * Prepare path as command-line arugment, depending on OS.
+     *
+     * @param string $path
+     *
+     * @return string
+     */
+    protected function preparePath(string $path): string
+    {
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            return "\"{$path}\"";
+        }
+
+        return "'{$path}'";
+    }
+
+    /**
      * Adds $option to $runCommand before other options and arguments.
      *
      * @param string $runCommand

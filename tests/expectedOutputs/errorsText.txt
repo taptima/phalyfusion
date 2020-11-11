@@ -6,6 +6,7 @@
   Line   Plugin         sampleCodebase/sampleCore.php                                                                                                                           
  ------ -------------- -------------------------------------------------------------------------------------------------------------------------------------------------------- 
   0      php-cs-fixer   binary_operator_spaces                                                                                                                                  
+  0      php-cs-fixer   blank_line_before_statement                                                                                                                             
   0      php-cs-fixer   concat_space                                                                                                                                            
   9      psalm          Docblock-defined class or interface PluginRunnerInterface does not exist                                                                                
   11     phan           UndefError PhanUndeclaredTypeProperty Property \sampleCore->plugins has undeclared type \PluginRunnerInterface[]                                        
@@ -33,5 +34,5 @@
   100    phan           TypeError PhanTypeExpectedObjectOrClassName Expected an object instance or the name of a class but saw expression $class with type class-string|object  
  ------ -------------- -------------------------------------------------------------------------------------------------------------------------------------------------------- 
 
- [ERROR] 26 errors found!                                                       
+ [ERROR] 27 errors found!                                                       
 

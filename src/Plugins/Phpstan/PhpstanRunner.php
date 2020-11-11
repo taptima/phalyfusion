@@ -29,7 +29,7 @@ class PhpstanRunner extends PluginRunner
         $runCommand = preg_replace('/\s--error-format(=|\s+?)(\'.*?\'|".*?"|\S+)/', '', $runCommand);
         $runCommand = $this->addOption($runCommand, '--error-format=json');
         foreach ($paths as &$path) {
-            $path = "'{$path}'";
+            $path = $this->preparePath($path);
         }
         $runCommand .= ' ' . implode(' ', $paths);
 

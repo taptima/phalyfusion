@@ -32,7 +32,7 @@ class PhanRunner extends PluginRunner
         if ($paths) {
             foreach ($paths as &$path) {
                 $relative = $this->getRelativePath(getcwd(), $path);
-                $path     = "'{$relative}'";
+                $path     = $this->preparePath($relative);
             }
             $runCommand = preg_replace('/(\s--include-analysis-file-list(=|\s+?)|\s-m(=|\s*))(\'.*?\'|".*?"|\S+)/', '', $runCommand);
             $runCommand = preg_replace('/(\s-I(=|\s+?)|\s-m(=|\s*))(\'.*?\'|".*?"|\S+)/', '', $runCommand);

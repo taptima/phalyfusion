@@ -30,7 +30,7 @@ class PhpCsFixerRunner extends PluginRunner
         $runCommand = $this->addOption($runCommand, '--dry-run');
         $runCommand = $this->addOption($runCommand, '--format=gitlab');
         foreach ($paths as &$path) {
-            $path = "'{$path}'";
+            $path = $this->preparePath($path);
         }
         $runCommand .= ' ' . implode(' ', $paths);
 
