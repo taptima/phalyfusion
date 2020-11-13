@@ -4,6 +4,7 @@ namespace Phalyfusion\Plugins;
 
 use Exception;
 use Phalyfusion\Console\IOHandler;
+use Phalyfusion\Console\OutputGenerator;
 use Phalyfusion\Model\ErrorModel;
 use Phalyfusion\Model\PluginOutputModel;
 use Symfony\Component\Process\Process;
@@ -36,6 +37,7 @@ abstract class PluginRunner implements PluginRunnerInterface
         $pluginModels = [];
 
         foreach ($runCommands as $command) {
+            OutputGenerator::nextAnalyzer($name);
             $runCommand = $this->prepareCommand($command, $paths);
 
             IOHandler::debug("---{$name}---");

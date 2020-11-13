@@ -60,6 +60,12 @@ class AnalyseCommand extends Command
                 'Output format. Avaliable formats: table, json, checkstyle',
                 'table'
             )
+            ->addOption(
+                'no-progress',
+                'p',
+                InputOption::VALUE_NONE,
+                'Disables progress bar'
+            )
             ->addArgument(
                 'files',
                 InputArgument::IS_ARRAY | InputArgument::OPTIONAL,

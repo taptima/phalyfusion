@@ -4,12 +4,74 @@ namespace Phalyfusion\Console;
 
 use Phalyfusion\Model\ErrorModel;
 use Phalyfusion\Model\PluginOutputModel;
+use Symfony\Component\Console\Helper\ProgressBar;
 
 /**
  * Class OutputGenerator.
  */
 class OutputGenerator
 {
+    /**
+     * @var ProgressBar
+     */
+    private static $progressBar;
+
+    /**
+     * @var bool
+     */
+    private static $isBarInit;
+
+    public static function initProgressBar(int $stepsCnt): void
+    {
+        if (IOHandler::$input->getOption('format') == 'table') {
+            IOHandler::$io->title(' ~~ Phalyfusion! ~~ ');
+        }
+
+        if (IOHandler::$input->getOption('no-progress')) {
+            return;
+        }
+
+        IOHandler::$output->writeln('Analyzers in progress...');
+
+        self::$progressBar = new ProgressBar(IOHandler::$output, $stepsCnt);
+        self::$progressBar->setOverwrite(true);
+        self::$progressBar->setFormat("<fg=white>[%current%/%max%] Current analyzer: %message%</>\n[%bar%]\n");
+
+        self::$progressBar->setEmptyBarCharacter('<fg=white>|</>');
+        self::$progressBar->setProgressCharacter('<fg=green>➤</>');
+    }
+
+    /**
+     * @param string $analyzerName
+     */
+    public static function nextAnalyzer(string $analyzerName): void
+    {
+        if (self::$progressBar == null) {
+            return;
+        }
+
+        self::$progressBar->setMessage($analyzerName);
+
+        if (!self::$isBarInit) {
+            self::$progressBar->start();
+            self::$isBarInit = true;
+
+            return;
+        }
+
+        self::$progressBar->advance();
+    }
+
+    public static function finishProgressBar(): void
+    {
+        if (self::$progressBar == null) {
+            return;
+        }
+
+        self::$progressBar->setMessage('Done!');
+        self::$progressBar->finish();
+    }
+
     /**
      * @param PluginOutputModel[] $outputModels
      *
@@ -20,7 +82,6 @@ class OutputGenerator
         $model      = self::combineModels($outputModels);
         $errorCount = 0;
 
-        IOHandler::$io->title(' ~~ Phalyfusion! ~~ ');
         if (!$model->getFiles()) {
             IOHandler::$io->success('No errors found!');
 

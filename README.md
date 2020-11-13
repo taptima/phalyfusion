@@ -92,5 +92,7 @@ The `-c`, `--config` option is a path to neon config file. `phalyfusion.neon` lo
 
 The `-f`, `--format` option for the output format. Supported formats are `table` (default one), `json`, `checkstyle`.
 
+The `-p`, `--no-progress` option to disable progress bar.
+
 ## Contributing
 See [CONTRIBUTING](CONTRIBUTING.md) file.
