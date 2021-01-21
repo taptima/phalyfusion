@@ -45,6 +45,10 @@ class PhpstanRunner extends PluginRunner
 
         $decoded = json_decode($output, true);
         if ($decoded) {
+            foreach ($decoded['errors'] as $error) {
+                $this->addError($outputModel, '', $error);
+            }
+
             foreach ($decoded['files'] as $filePath => $errors) {
                 foreach ($errors['messages'] as $error) {
                     $this->addError($outputModel, $filePath, $error['message'], $error['line']);

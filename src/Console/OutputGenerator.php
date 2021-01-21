@@ -90,11 +90,20 @@ class OutputGenerator
 
         foreach ($model->getFiles() as $fileModel) {
             $rows = [];
-            foreach ($fileModel->getErrors() as $errorModel) {
-                $rows[] = [$errorModel->getLine(), $errorModel->getPluginName(), $errorModel->getMessage()];
-                ++$errorCount;
+
+            if ($fileModel->getPath() == '') {
+                foreach ($fileModel->getErrors() as $errorModel) {
+                    $rows[] = [$errorModel->getPluginName(), $errorModel->getMessage()];
+                }
+
+                IOHandler::$io->table(['Plugin', 'Not file specific errors'], $rows);
+            } else {
+                foreach ($fileModel->getErrors() as $errorModel) {
+                    $rows[] = [$errorModel->getLine(), $errorModel->getPluginName(), $errorModel->getMessage()];
+                    ++$errorCount;
+                }
+                IOHandler::$io->table(['Line', 'Plugin', $fileModel->getPath()], $rows);
             }
-            IOHandler::$io->table(['Line', 'Plugin', $fileModel->getPath()], $rows);
         }
 
         IOHandler::$io->error("{$errorCount} errors found!");
