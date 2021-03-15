@@ -51,7 +51,11 @@ class PhpstanRunner extends PluginRunner
 
             foreach ($decoded['files'] as $filePath => $errors) {
                 foreach ($errors['messages'] as $error) {
-                    $this->addError($outputModel, $filePath, $error['message'], $error['line']);
+                    if (!is_null($error['line'])) {
+                        $this->addError($outputModel, $filePath, $error['message'], $error['line']);
+                    } else {
+                        $this->addError($outputModel, $filePath, $error['message']);
+                    }
                 }
             }
         }
