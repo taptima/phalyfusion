@@ -88,6 +88,12 @@ class AnalyseCommand extends Command
         $usedPlugins = $config['plugins']['usePlugins'];
         $runCommands = $config['plugins']['runCommands'];
 
+        foreach ($runCommands as $key => $value) {
+            if (gettype($runCommands[$key]) != 'array') {
+                $runCommands[$key] = [$value];
+            }
+        }
+
         if (!$usedPlugins) {
             IOHandler::error('One or more plugins should be used', 'No plugins to use are stated in config');
             exit(1);

@@ -15,10 +15,10 @@ interface PluginRunnerInterface
     public static function getName(): string;
 
     /**
-     * @param string   $runCommand
-     * @param string[] $paths      Paths with source code to run analysis on
+     * @param string[] $runCommands
+     * @param string[] $paths       Paths with source code to run analysis on
      *
-     * @return PluginOutputModel
+     * @return PluginOutputModel[]
      */
-    public function run(string $runCommand, array $paths): PluginOutputModel;
+    public function run(array $runCommands, array $paths): array;
 }

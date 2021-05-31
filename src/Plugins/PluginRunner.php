@@ -25,40 +25,46 @@ abstract class PluginRunner implements PluginRunnerInterface
     }
 
     /**
-     * @param string   $runCommand
+     * @param string[] $runCommands
      * @param string[] $paths
      *
-     * @return PluginOutputModel
+     * @return PluginOutputModel[]
      */
-    public function run(string $runCommand, array $paths): PluginOutputModel
+    public function run(array $runCommands, array $paths): array
     {
-        $name       = $this::getName();
-        $runCommand = $this->prepareCommand($runCommand, $paths);
+        $name         = $this::getName();
+        $pluginModels = [];
 
-        IOHandler::debug("---{$name}---");
-        IOHandler::debug("{$runCommand}");
+        foreach ($runCommands as $command) {
+            $runCommand = $this->prepareCommand($command, $paths);
 
-        $process = Process::fromShellCommandline($runCommand);
+            IOHandler::debug("---{$name}---");
+            IOHandler::debug("{$runCommand}");
 
-        try {
-            $process->run(function ($type, $buffer) {
-                if ($type === Process::ERR) {
-                    IOHandler::debug($buffer, false);
-                }
-            });
-        } catch (Exception $e) {
-            IOHandler::error("{$name} run failed! Aborting.", $e);
-            exit(1);
+            $process = Process::fromShellCommandline($runCommand);
+
+            try {
+                $process->run(function ($type, $buffer) {
+                    if ($type === Process::ERR) {
+                        IOHandler::debug($buffer, false);
+                    }
+                });
+            } catch (Exception $e) {
+                IOHandler::error("{$name} run failed! Aborting.", $e);
+                exit(1);
+            }
+
+            $output   = $process->getOutput();
+            $exitcode = $process->getExitCode();
+            if (!$output and $exitcode) {
+                IOHandler::error("{$name} run failed! Empty output with exit code {$exitcode}", $process->getErrorOutput());
+                exit(1);
+            }
+
+            $pluginModels[] = $this->parseOutput($output);
         }
 
-        $output   = $process->getOutput();
-        $exitcode = $process->getExitCode();
-        if (!$output and $exitcode) {
-            IOHandler::error("{$name} run failed! Empty output with exit code {$exitcode}", $process->getErrorOutput());
-            exit(1);
-        }
-
-        return $this->parseOutput($output);
+        return $pluginModels;
     }
 
     /**

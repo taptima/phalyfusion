@@ -27,9 +27,9 @@ class Core
     private $usedPlugins;
 
     /**
-     * Run command for each plugin.
+     * Run commands for each plugin.
      *
-     * @var string[]
+     * @var string[][]
      */
     private $runCommands;
 
@@ -79,7 +79,7 @@ class Core
                 IOHandler::error("{$pluginName} run failed!", "No run command for {$pluginName} provided in config");
                 exit(1);
             }
-            $output[] = $plugin->run($this->runCommands[$pluginName], $this->paths);
+            $output = array_merge($output, $plugin->run($this->runCommands[$pluginName], $this->paths));
         }
 
         return $output;

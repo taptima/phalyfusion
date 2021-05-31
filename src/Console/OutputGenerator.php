@@ -126,6 +126,7 @@ class OutputGenerator
 
                 return $a->getLine() - $b->getLine();
             });
+            $errors = array_unique($errors, SORT_REGULAR);
             $fileModel->setErrors($errors);
         }
         $resultModel->setFiles($resultFiles);
