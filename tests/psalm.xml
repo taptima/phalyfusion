@@ -2,7 +2,6 @@
 <psalm
     totallyTyped="false"
     resolveFromConfigFile="false"
-    requireVoidReturnType="false"
     allowStringToStandInForClass="true"
     addParamDefaultToDocblockType="true"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

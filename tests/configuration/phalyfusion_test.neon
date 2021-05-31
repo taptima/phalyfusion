@@ -12,7 +12,7 @@ plugins:
         phpstan:
             - ../bin/phpstan analyse -c configuration/phpstan_test.neon --error-format unsupported --level 7
         psalm:
-            - "../bin/psalm -c 'configuration/psalm_test.xml' --output-format=unsupported"
+            - "../bin/psalm --output-format=unsupported"
         phpmd:
             - ../bin/phpmd sampleCodebase someunsupportedformat cleancode
         php-cs-fixer:

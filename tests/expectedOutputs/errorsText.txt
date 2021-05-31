@@ -8,10 +8,10 @@
   0      php-cs-fixer   binary_operator_spaces                                                                                                                                  
   0      php-cs-fixer   blank_line_before_statement                                                                                                                             
   0      php-cs-fixer   concat_space                                                                                                                                            
-  9      psalm          Docblock-defined class or interface PluginRunnerInterface does not exist                                                                                
+  9      psalm          Docblock-defined class, interface or enum named PluginRunnerInterface does not exist                                                                    
   11     phan           UndefError PhanUndeclaredTypeProperty Property \sampleCore->plugins has undeclared type \PluginRunnerInterface[]                                        
   11     phpstan        Property sampleCore::$plugins has unknown class PluginRunnerInterface as its type.                                                                      
-  62     psalm          Docblock-defined class or interface PluginOutputModel does not exist                                                                                    
+  62     psalm          Docblock-defined class, interface or enum named PluginOutputModel does not exist                                                                        
   64     phan           UndefError PhanUndeclaredTypeReturnType Return type of runPlugins() is undeclared type \PluginOutputModel[]                                             
   64     phpstan        Return typehint of method sampleCore::runPlugins() has invalid type PluginOutputModel.                                                                  
   68     phan           UndefError PhanUndeclaredClassMethod Call to method getName from undeclared class \PluginRunnerInterface                                                
@@ -24,7 +24,7 @@
   85     phan           UndefError PhanUndeclaredClassMethod Call to method createMap from undeclared class \ClassMapGenerator                                                  
   85     phpmd          Avoid using static access to class 'ClassMapGenerator' in method 'loadPlugins'.                                                                         
   85     phpstan        Call to static method createMap() on an unknown class ClassMapGenerator.                                                                                
-  85     psalm          Class or interface ClassMapGenerator does not exist                                                                                                     
+  85     psalm          Class, interface or enum named ClassMapGenerator does not exist                                                                                         
   87     phan           UndefError PhanUndeclaredClassReference Reference to undeclared class \PluginRunnerInterface                                                            
   87     phpstan        Class PluginRunnerInterface not found.                                                                                                                  
   90     phpmd          Missing class import via use statement (line '90', column '35').                                                                                        
