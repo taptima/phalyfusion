@@ -39,29 +39,7 @@ abstract class PluginRunner implements PluginRunnerInterface
         foreach ($runCommands as $command) {
             OutputGenerator::nextAnalyzer($name);
             $runCommand = $this->prepareCommand($command, $paths);
-
-            IOHandler::debug("---{$name}---");
-            IOHandler::debug("{$runCommand}");
-
-            $process = Process::fromShellCommandline($runCommand);
-
-            try {
-                $process->run(function ($type, $buffer) {
-                    if ($type === Process::ERR) {
-                        IOHandler::debug($buffer, false);
-                    }
-                });
-            } catch (Exception $e) {
-                IOHandler::error("{$name} run failed! Aborting.", $e);
-                exit(1);
-            }
-
-            $output   = $process->getOutput();
-            $exitcode = $process->getExitCode();
-            if (!$output and $exitcode) {
-                IOHandler::error("{$name} run failed! Empty output with exit code {$exitcode}", $process->getErrorOutput());
-                exit(1);
-            }
+            $output     = $this->launchCommand($runCommand, $name);
 
             $pluginModels[] = $this->parseOutput($output);
         }
@@ -157,5 +135,41 @@ abstract class PluginRunner implements PluginRunnerInterface
         }
 
         return $filePath;
+    }
+
+    /**
+     * Runs prepared command and returns its' output.
+     *
+     * @param string $runCommand
+     * @param string $name
+     *
+     * @return string
+     */
+    private function launchCommand(string $runCommand, string $name): string
+    {
+        IOHandler::debug("---{$name}---");
+        IOHandler::debug("{$runCommand}");
+
+        $process = Process::fromShellCommandline($runCommand);
+
+        try {
+            $process->run(function ($type, $buffer) {
+                if ($type === Process::ERR) {
+                    IOHandler::debug($buffer, false);
+                }
+            });
+        } catch (Exception $e) {
+            IOHandler::error("{$name} run failed! Aborting.", $e);
+            exit(1);
+        }
+
+        $output   = $process->getOutput();
+        $exitCode = $process->getExitCode();
+        if (!$output and $exitCode) {
+            IOHandler::error("{$name} run failed! Empty output with exit code {$exitCode}", $process->getErrorOutput());
+            exit(1);
+        }
+
+        return $output;
     }
 }
