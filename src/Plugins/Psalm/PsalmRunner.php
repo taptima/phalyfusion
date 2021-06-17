@@ -29,7 +29,7 @@ class PsalmRunner extends PluginRunner
         $runCommand = preg_replace('/\s--output-format=(\'.*?\'|".*?"|\S+)/', '', $runCommand);
         $runCommand = $this->addOption($runCommand, '--output-format=json');
         foreach ($paths as &$path) {
-            $path = "'{$path}'";
+            $path = $this->preparePath($path);
         }
         $runCommand .= ' ' . implode(' ', $paths);
 

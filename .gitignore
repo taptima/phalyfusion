@@ -4,6 +4,7 @@
 .phan
 phalyfusion.neon
 psalm.xml
+!tests/psalm.xml
 phpstan.neon
 .php_cs.cache
 composer.lock

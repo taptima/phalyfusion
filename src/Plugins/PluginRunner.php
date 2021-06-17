@@ -4,6 +4,7 @@ namespace Phalyfusion\Plugins;
 
 use Exception;
 use Phalyfusion\Console\IOHandler;
+use Phalyfusion\Console\OutputGenerator;
 use Phalyfusion\Model\ErrorModel;
 use Phalyfusion\Model\PluginOutputModel;
 use Symfony\Component\Process\Process;
@@ -25,40 +26,25 @@ abstract class PluginRunner implements PluginRunnerInterface
     }
 
     /**
-     * @param string   $runCommand
+     * @param string[] $runCommands
      * @param string[] $paths
      *
-     * @return PluginOutputModel
+     * @return PluginOutputModel[]
      */
-    public function run(string $runCommand, array $paths): PluginOutputModel
+    public function run(array $runCommands, array $paths): array
     {
-        $name       = $this::getName();
-        $runCommand = $this->prepareCommand($runCommand, $paths);
+        $name         = $this::getName();
+        $pluginModels = [];
 
-        IOHandler::debug("---{$name}---");
-        IOHandler::debug("{$runCommand}");
+        foreach ($runCommands as $command) {
+            OutputGenerator::nextAnalyzer($name);
+            $runCommand = $this->prepareCommand($command, $paths);
+            $output     = $this->launchCommand($runCommand, $name);
 
-        $process = Process::fromShellCommandline($runCommand);
-
-        try {
-            $process->run(function ($type, $buffer) {
-                if ($type === Process::ERR) {
-                    IOHandler::debug($buffer, false);
-                }
-            });
-        } catch (Exception $e) {
-            IOHandler::error("{$name} run failed! Aborting.", $e);
-            exit(1);
+            $pluginModels[] = $this->parseOutput($output);
         }
 
-        $output   = $process->getOutput();
-        $exitcode = $process->getExitCode();
-        if (!$output and $exitcode) {
-            IOHandler::error("{$name} run failed! Empty output with exit code {$exitcode}", $process->getErrorOutput());
-            exit(1);
-        }
-
-        return $this->parseOutput($output);
+        return $pluginModels;
     }
 
     /**
@@ -82,6 +68,22 @@ abstract class PluginRunner implements PluginRunnerInterface
      * @return PluginOutputModel
      */
     abstract protected function parseOutput(string $output): PluginOutputModel;
+
+    /**
+     * Prepare path as command-line arugment, depending on OS.
+     *
+     * @param string $path
+     *
+     * @return string
+     */
+    protected function preparePath(string $path): string
+    {
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            return "\"{$path}\"";
+        }
+
+        return "'{$path}'";
+    }
 
     /**
      * Adds $option to $runCommand before other options and arguments.
@@ -133,5 +135,41 @@ abstract class PluginRunner implements PluginRunnerInterface
         }
 
         return $filePath;
+    }
+
+    /**
+     * Runs prepared command and returns its' output.
+     *
+     * @param string $runCommand
+     * @param string $name
+     *
+     * @return string
+     */
+    private function launchCommand(string $runCommand, string $name): string
+    {
+        IOHandler::debug("---{$name}---");
+        IOHandler::debug("{$runCommand}");
+
+        $process = Process::fromShellCommandline($runCommand);
+
+        try {
+            $process->run(function ($type, $buffer) {
+                if ($type === Process::ERR) {
+                    IOHandler::debug($buffer, false);
+                }
+            });
+        } catch (Exception $e) {
+            IOHandler::error("{$name} run failed! Aborting.", $e);
+            exit(1);
+        }
+
+        $output   = $process->getOutput();
+        $exitCode = $process->getExitCode();
+        if (!$output and $exitCode) {
+            IOHandler::error("{$name} run failed! Empty output with exit code {$exitCode}", $process->getErrorOutput());
+            exit(1);
+        }
+
+        return $output;
     }
 }

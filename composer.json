@@ -32,7 +32,7 @@
         "ext-ast": "*",
         "phpstan/phpstan": "^0.12.2",
         "phan/phan": "^2.6",
-        "vimeo/psalm": "^3.9",
+        "vimeo/psalm": "^4.4",
         "phpmd/phpmd": "^2.8",
         "taptima/php-cs-fixer": "^1.0",
         "phpunit/phpunit": "^7.0"

@@ -7,7 +7,7 @@ class PhalyfusionTest extends TestCase
 {
     public function testPhalyfusionNoErrorsNoAnsi(): void
     {
-        $runCommand = '../phalyfusion analyse -c configuration/phalyfusion_test.neon sampleCodebase/sampleNoErrors.php --no-ansi';
+        $runCommand = '../phalyfusion analyse -c configuration/phalyfusion_test.neon sampleCodebase/sampleNoErrors.php --no-ansi -p';
         $process = Process::fromShellCommandline($runCommand, __DIR__);
         $process->run();
         $this->assertSuccessful($process);
@@ -16,7 +16,7 @@ class PhalyfusionTest extends TestCase
 
     public function testPhalyfusionNoErrorsJsonFormat(): void
     {
-        $runCommand = '../phalyfusion analyse -c configuration/phalyfusion_test.neon sampleCodebase/sampleNoErrors.php -f json';
+        $runCommand = '../phalyfusion analyse -c configuration/phalyfusion_test.neon sampleCodebase/sampleNoErrors.php -f json -p';
         $process = Process::fromShellCommandline($runCommand, __DIR__);
         $process->run();
         $this->assertSuccessful($process);
@@ -25,7 +25,7 @@ class PhalyfusionTest extends TestCase
 
     public function testPhalyfusionNoErrorsCheckstyleFormat(): void
     {
-        $runCommand = '../phalyfusion analyse -c configuration/phalyfusion_test.neon sampleCodebase/sampleNoErrors.php -f checkstyle';
+        $runCommand = '../phalyfusion analyse -c configuration/phalyfusion_test.neon sampleCodebase/sampleNoErrors.php -f checkstyle -p';
         $process = Process::fromShellCommandline($runCommand, __DIR__);
         $process->run();
         $this->assertSuccessful($process);
@@ -34,7 +34,7 @@ class PhalyfusionTest extends TestCase
 
     public function testPhalyfusionNoAnsi(): void
     {
-        $runCommand = '../phalyfusion analyse -c configuration/phalyfusion_test.neon --no-ansi';
+        $runCommand = '../phalyfusion analyse -c configuration/phalyfusion_test.neon --no-ansi -p';
         $process = Process::fromShellCommandline($runCommand, __DIR__);
         $process->run();
         $this->assertSuccessful($process);
@@ -43,7 +43,7 @@ class PhalyfusionTest extends TestCase
 
     public function testPhalyfusionJsonFormat(): void
     {
-        $runCommand = '../phalyfusion analyse -c configuration/phalyfusion_test.neon -f json';
+        $runCommand = '../phalyfusion analyse -c configuration/phalyfusion_test.neon -f json -p';
         $process = Process::fromShellCommandline($runCommand, __DIR__);
         $process->run();
         $this->assertSuccessful($process);
@@ -52,7 +52,7 @@ class PhalyfusionTest extends TestCase
 
     public function testPhalyfusionCheckStyleFormat(): void
     {
-        $runCommand = '../phalyfusion analyse -c configuration/phalyfusion_test.neon -f checkstyle';
+        $runCommand = '../phalyfusion analyse -c configuration/phalyfusion_test.neon -f checkstyle -p';
         $process = Process::fromShellCommandline($runCommand, __DIR__);
         $process->run();
         $this->assertSuccessful($process);

@@ -60,6 +60,12 @@ class AnalyseCommand extends Command
                 'Output format. Avaliable formats: table, json, checkstyle',
                 'table'
             )
+            ->addOption(
+                'no-progress',
+                'p',
+                InputOption::VALUE_NONE,
+                'Disables progress bar'
+            )
             ->addArgument(
                 'files',
                 InputArgument::IS_ARRAY | InputArgument::OPTIONAL,
@@ -87,6 +93,12 @@ class AnalyseCommand extends Command
         $config      = $this->readConfig();
         $usedPlugins = $config['plugins']['usePlugins'];
         $runCommands = $config['plugins']['runCommands'];
+
+        foreach ($runCommands as $key => $value) {
+            if (gettype($runCommands[$key]) != 'array') {
+                $runCommands[$key] = [$value];
+            }
+        }
 
         if (!$usedPlugins) {
             IOHandler::error('One or more plugins should be used', 'No plugins to use are stated in config');

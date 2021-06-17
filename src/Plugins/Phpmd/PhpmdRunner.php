@@ -31,7 +31,7 @@ class PhpmdRunner extends PluginRunner
 
         if ($paths) {
             foreach ($paths as &$path) {
-                $path = "'{$path}'";
+                $path = $this->preparePath($path);
             }
             $matches[0][1] = implode(',', $paths);
         }
